@@ -1,0 +1,93 @@
+<admin-directive>
+    <div class="row text-center">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <h2><strong>Probléma - Tünet összerendelés</strong></h2>
+        </div>
+    </div>
+
+    <div class="row pad-top-botm">
+        <div class="col-lg-10 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-md-10 col-sm-10">
+            <form  class="form-horizontal" name="userForm">
+
+                <div class=" col-md-6 col-lg-6 col-sm-6">
+                    <div class="form-group">
+
+                        <div class="col-sm-10">
+                            <input type="text" ng-model="problemToAdd" class="form-control"/>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-success  btn-md pull-right " ng-click="addProblem(problemToAdd);">Hozzáadás</button>
+                        </div>
+
+                    </div>
+                    <table class="table table-bordered table-hover documentTable problemTable">
+                        <thead>
+                            <tr>
+                                <th>Probléma</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-show="problems.length < 1">
+                                <td colspan="3">Nincsen feltöltött adat!</td>
+                            </tr>
+                            <tr ng-repeat="problem in problems" ng-class="{selected : problem.selected}" ng-click="selectProblem(problem)">
+                                <td>{{problem.stringValue}}</td>
+                                <td style="width: 20px; background-color: red;" ng-show="!problem.verified">
+                                    <i class="fa fa-exclamation-circle" ></i>
+                                </td>
+                                <td style="width: 20px; background-color: green;" ng-show="problem.verified">
+                                    <i class="fa fa-check-circle"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+                <div class=" col-md-6 col-lg-6 col-sm-6">
+                    <div class="form-group">
+
+                        <div class="col-sm-10">
+                            <input type="text" ng-model="symptomToAdd" class="form-control"/>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-success  btn-md pull-right " ng-click="addSymptom(symptomToAdd);">Hozzáadás</button>
+                        </div>
+
+                    </div>
+                    <table class="table table-bordered table-hover documentTable symptomTable">
+                        <thead>
+                            <tr>
+                                <th>Tünet</th>
+                                <th style="width: 30px">Kiválasztva</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-show="symptoms.length < 1">
+                                <td colspan="3">Nincsen feltöltött adat!</td>
+                            </tr>
+                            <tr ng-repeat="symptom in symptoms" ng-class="{selected : symptom.selected}" ng-click="selectSymptom(symptom)">
+                                <td>{{symptom.stringValue}}</td>
+                                <td>HE</td>
+                            </tr>
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+
+
+                <div class="form-group">
+                    <button class="btn btn-success  btn-lg pull-right " ng-click="save();">Mentés</button>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</admin-directive>

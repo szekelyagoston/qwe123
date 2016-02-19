@@ -1,0 +1,76 @@
+<div id="registration" ng-show="!sessionStorage.isLoggedIn">
+        <div class="container" ng-show="!justRegistered && !newPassSent">
+            <div class="row text-center">
+                <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+                    <h2 class="logindirective" ng-show="state.login"><strong>Bejelentkezés </strong></h2>
+                    <h2 class="logindirective" ng-show="state.registration"><strong>Regisztráció </strong></h2>
+                    <h2 class="logindirective" ng-show="state.newPass"><strong>Új jelszó </strong></h2>
+                </div>
+            </div>
+        
+            <div class="row pad-top-botm">
+                <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" ng-model="credentials.email" class="form-control" placeholder="Email" ng-focus="loginFailed = false; regError = false"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" ng-show="!state.newPass" ng-model="credentials.password" class="form-control" placeholder="Jelszó" ng-focus="loginFailed = false; regError = false"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" ng-model="passwordAgain" class="form-control" placeholder="Jelszó újra" ng-focus="loginFailed = false;regError = false" ng-show="state.registration"/>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-control loginError" ng-show="loginFailed"><label class="loginError">{{errorMessage}}</label></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-control loginError" ng-show="regError"><label class="loginError">{{errorMessage}}</label></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="form-control loginError" ng-show="newPassError"><label class="loginError">{{newPassMessage}}</label></div>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-success btn-block btn-lg" ng-click="login();" ng-show="state.login">BEJELENTKEZÉS</button>
+                            <button class="btn btn-success btn-block btn-lg" ng-click="registration();" ng-show="state.registration">REGISZTRÁCIÓ</button>
+                            <button class="btn btn-success btn-block btn-lg" ng-click="sendNewPass();" ng-show="state.newPass">Új jelszó küldése</button>
+                        </div>
+                        <h4 style="text-align:center" ng-show="state.login"><strong>Nem tag? regisztráljon! </strong></h4>
+                        <h4 style="text-align:center" ng-show="state.registration"><strong>Már regisztrált? </strong></h4>
+                         <div class="form-group" >
+                            <button class="btn btn-info btn-block btn-md" ng-click="startReagistrationProcess();" ng-show="state.login">Regisztráció</button>
+                           
+                            <button class="btn btn-info btn-block btn-md" ng-click="backToLogin();" ng-show="state.registration">Vissza a bejelentkezéshez</button>
+                        </div>
+                        <h4 style="text-align:center" ng-show="state.login"><strong>Elfelejtette jelszavát? </strong></h4>
+                          <div class="form-group" >
+                         <button class="btn btn-warning btn-block btn-md" ng-click="newPassword();" ng-show="state.login">Új jelszó kérése</button>
+                          </div>
+
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    
+    
+    <div class="container justRegistered" ng-show="justRegistered">
+         <div class="row text-center">
+                <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+                    <h2 ><strong>Köszönjük regisztrációját! </strong></h2>
+                    <h4>Hamarosan egy email fog érkezni regisztrált címére ({{registeredEmail}}), amelynek segítségével megerősítheti email címét és véglegesítheti regisztrációját!</h4>
+                </div>
+            </div>
+    </div>
+    
+    <div class="container justRegistered" ng-show="newPassSent"> 
+         <div class="row text-center">
+                <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+                   
+                    <h4>Hamarosan egy email fog érkezni regisztrált címére az új jelszavával!</h4>
+                </div>
+            </div>
+    </div>
+</div>

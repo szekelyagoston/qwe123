@@ -1,0 +1,184 @@
+<div class="navbar navbar-default navbar-fixed-top move-me ">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <a class="navbar-brand" href="#/">
+                    <img src="assets/img/logo.png" class="navbar-brand-logo " alt="" />
+
+                </a>
+            </div>
+            <div class="navbar-collapse collapse move-me">
+                <ul class="nav navbar-nav navbar-right">
+                    <li >
+                        <a href="#?scrollTo=home">Keresés 
+
+                        </a>
+
+                    </li>
+
+                    <li >
+                        <a href="#?scrollTo=result">Szakemberek 
+
+                        </a>
+
+                    </li>
+                    <li >
+                        <a href="#?scrollTo=map">Térkép
+
+                        </a>
+
+                    </li>
+
+
+                    <li ng-if="!sessionStorage.isLoggedIn">
+                        <a href="#?scrollTo=registration">Belépés
+                        </a>
+
+                    </li>
+                    
+                    <li ng-if="sessionStorage.isLoggedIn">
+                        <a href="#/userpage">Személyes oldal
+                        </a>
+
+                    </li>
+                    
+                    <li ng-if="sessionStorage.isLoggedIn" style="cursor: pointer">
+                        <a  ng-click="logout()">Kijelentkezés
+                        </a>
+
+                    </li>
+
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+
+<div class="wrapper hold-transition skin-blue sidebar-mini">
+
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="index2.html" class="logo" style="height: 60px">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>A</b>LT</span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>Személyes</b>Oldal</span>
+            </a>
+
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img ng-src="{{specialist.picture}}" class="img-circle" alt="User Image">
+                    </div>
+                    <div class="pull-left info">
+                        <p>{{specialist.email}}</p>
+
+                    </div>
+                </div>
+
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu">
+                    <li class="header">Személyes adatok</li>
+                    <li class="active treeview" style="cursor:pointer">
+                        <a href="#/userpage">
+                            <i class="fa fa-dashboard"></i><span>Személyes adatok</span> 
+                        </a>
+                    </li>
+                    <li class= "treeview">
+                        <a href="#/changepassword">
+                            <i class="fa fa-dashboard"></i><span>Jelszóváltoztatás</span> 
+                        </a>
+                    </li>
+                    
+                    <li class= "treeview">
+                        <a href="#/documents">
+                            <i class="fa fa-dashboard"></i><span>Dokumentumok</span> 
+                        </a>
+                    </li>
+                    
+                    <li class="header">Rendeléseim</li>
+                    <li class="treeview">
+                        
+                        <a  ng-href="#/officeDetail" class=" newOffice">
+                            <i class="fa fa-plus"></i><span>Új rendelés felvétele</span> 
+                        </a>
+                        
+                        <a ng-repeat="office in specialist.officeList" ng-href="#/officeDetail?id={{office.id}}">
+                            <i class="fa fa-dashboard"></i><span>{{office.address}}</span> 
+                        </a>
+                        
+                    </li>
+
+                    <li class="header" style="cursor:pointer" ng-if="credentials.secGroup === 'ADMIN'">Adminisztrátor feladatok</li>
+                    
+                    <li class="treeview" ng-if="credentials.secGroup === 'ADMIN'">
+                        
+                        <a  ng-href="#/problem_symtphom">
+                            <i class="fa fa-plus"></i><span>Probléma-Tünet összerendelés</span> 
+                        </a>
+                        
+                    </li>
+                    <li class="treeview" ng-if="credentials.secGroup === 'ADMIN'">
+                        <a  ng-href="#/verify_office">
+                            <i class="fa fa-plus"></i><span>Új rendelési helyek</span> 
+                        </a>
+                    </li>
+                    <li class="treeview" ng-if="credentials.secGroup === 'ADMIN'">
+                        <a  ng-href="#/verify_specialist">
+                            <i class="fa fa-plus"></i><span>Új szakemberek</span> 
+                        </a>
+                    </li>
+                    
+                    <li class="treeview" ng-if="credentials.secGroup === 'ADMIN'">
+                        <a  ng-href="#/value_lists">
+                            <i class="fa fa-plus"></i><span>Értéklisták</span> 
+                        </a>
+                    </li>
+
+
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+           
+
+            <!-- Main content -->
+            <section class="content" style="margin-top: 60px;">
+                <!-- Small boxes (Stat box) -->
+
+                <!-- Main row -->
+                <div class="row">
+                    <div ng-transclude></div>
+                </div><!-- /.row (main row) -->
+
+            </section><!-- /.content -->
+        </div><!-- /.content-wrapper -->
+       <div id="footser-end" class="fixedSytle">
+        <div class="container ">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    &copy; 2014 yourdomian.com | by <a href="http://www.binarytheme.com/" style="color:#fff;" target="_blank" >binarytheme.com</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    </div><!-- ./wrapper -->

@@ -1,0 +1,5 @@
+<div>Felhasználói fiók aktiválása...</div>
+<div ng-show="!activated">Kérem várjon!</div>
+<div ng-show="!activated">{{message}}</div>
+<div ng-show="activated"><a ng-click="toLogin()">Aktiválás sikeres! Bejelentkezéshez</a></div>
+<div ng-show="error"><a ng-click="toLogin()">Bejelentkezéshez</a></div>

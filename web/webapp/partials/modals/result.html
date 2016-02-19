@@ -1,0 +1,38 @@
+<div class="modal-header">
+    <h3 class="modal-title"  style="display: inline-block">Részletek</h3>
+    <h3 class="modal-title pull-right"  style="display: inline-block">{{result.lastName}} {{result.firstName}}</h3>
+</div>
+<div class="modal-body" >
+    <div style="display: inline-block">
+        <img ng-src="{{result.picture}}" alt="User Picture" class="img-circle" style="width: 150px">
+    </div>
+    <div style="display: inline-block; position: relative; left: 25px;">
+        <div class="modalRow">Telefonszám : {{result.phoneNumber}}</div>
+        <div class="modalRow">Email : {{result.email}}</div>
+        <div class="modalRow" ng-repeat="problem in result.problems">{{problem.stringValue}}</div>
+        Végzettségek:
+        <div class="modalRow" ng-repeat="qualification in result.qualifications">{{qualification.stringValue}}</div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li role="presentation" ng-class="{active : office.active}" ng-repeat="office in result.officeList"><a style="cursor: pointer" ng-click="changeTab(office)">{{office.userGivenAddress}}</a></li>
+    </ul>
+
+    <div style="display: inline-block; position: relative; left: 25px;">
+        <div class="modalRow">Cím : {{officeToShow.address}}</div>
+        <div class="modalRow">Felhasználói cím : {{officeToShow.userGivenAddress}}</div>
+    </div>
+    <div style="display: inline-block; position: relative; left: 25px; width: 300px" class="resultModalMap" >
+
+            <ui-gmap-google-map center='map.center' zoom='map.zoom' control="mapControl" ng-if="render">
+                <ui-gmap-marker coords="marker.coords" icon="marker.icon" idKey="marker.id">
+
+                </ui-gmap-marker>
+            </ui-gmap-google-map>
+
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>

@@ -1,0 +1,26 @@
+<div>
+    <table class="table table-bordered documentTable officeDetail">
+        <thead>
+        <th></th>
+        <th colspan="2">Tól</th>
+        <th colspan="2">Ig</th>
+        <th style="width:20px">Nyitva</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="openingHour in formattedOpeningDays" ng-class="{selected : openingHour.active}">
+                <td>{{openingHour.openingDay}}</td>
+                <td><input type="number"  ng-model="openingHour.fromClockHour" class="form-control" ng-disabled="!openingHour.active || disabled" ng-blur="formattedOpeningDaysChanged();"/></td>
+                <td><input type="number"  ng-model="openingHour.fromClockMin" class="form-control" ng-disabled="!openingHour.active || disabled" ng-blur="formattedOpeningDaysChanged();"/></td>
+                <td><input type="number"  ng-model="openingHour.toClockHour" class="form-control" ng-disabled="!openingHour.active || disabled" ng-blur="formattedOpeningDaysChanged();"/></td>
+                <td><input type="number"  ng-model="openingHour.toClockMin" class="form-control" ng-disabled="!openingHour.active || disabled" ng-blur="formattedOpeningDaysChanged();"/></td>
+                <td style="width: 20px"  ng-class="{selected : openingHour.active}" ng-click="changeSelection(openingHour)">
+                    <i class="fa fa-check-circle" ng-show="openingHour.active"></i>
+                    <i class="fa fa-plus-circle" ng-show="!openingHour.active"></i>
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+    
+    {{openingDays}}
+</div>

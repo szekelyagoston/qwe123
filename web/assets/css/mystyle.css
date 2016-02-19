@@ -1,0 +1,215 @@
+.dynamicTile .col-sm-2.col-xs-4 {
+    padding: 5px;
+}
+
+.bigicon {
+    font-size: 67px;
+    color: white;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.icontext {
+    color: white;
+    font-size: 27px;
+}
+
+.bigicondark {
+    font-size: 67px;
+    color: black;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.icontextdark {
+    color: black;
+    font-size: 27px;
+}
+
+.dynamicTile .col-sm-4.col-xs-8 {
+    padding: 5px;
+}
+
+#tile1 {
+    background: #7C91C7;
+}
+
+#tile2 {
+    background: #3B579D;
+}
+
+#tile3 {
+    background: #153178;
+}
+
+#tile4 {
+    background: #EACF46;
+}
+
+#tile5 {
+    background: #EACF46;
+}
+
+#tile6 {
+    background: #FFED94;
+}
+
+#tile7 {
+    background: white;
+}
+
+#tile8 {
+    background: #03133C;
+}
+
+#tile9 {
+    background: #EACF46;
+}
+
+#tile10 {
+    background: darkseagreen;
+    border-radius: 5px;
+}
+
+.tilecaption {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    margin: 0!important;
+    text-align: center;
+    color: white;
+    font-family: Segoe UI;
+    font-weight: lighter;
+}
+#map{
+    max-width: 1300px;
+    min-width: 300px;
+    height: 500px;
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+
+
+
+.loginError{
+    color: red;
+}
+div.loginError{
+    border: 1px solid red;
+    background-color: antiquewhite;
+    text-align : center;
+}
+
+.loginSuccess{
+    color: #03133C;
+}
+div.loginSuccess{
+    border: 1px solid green;
+    background-color: antiquewhite;
+    text-align : center;
+}
+
+
+div.justRegistered{
+    margin-top: 30px;
+    margin-bottom: 100px;
+}
+
+.margin-right-sm{
+    margin-right: 10px;
+}
+
+.fixedSytle{
+    position: fixed;
+    width: 100%;
+    bottom: 0px;
+}
+
+html, 
+body {
+    height: 100%;
+}
+body{
+    background-color:#ecf0f5;
+}
+
+table.documentTable{
+    background-color:#dedede;
+}
+table.documentTable th{
+    background-color: #66afe9;
+}
+a.newOffice{
+    background-color: darkolivegreen;
+}
+a.newOffice:hover{
+    background-color: darkolivegreen;
+}
+/*MAP*/
+.angular-google-map-container { height: 400px; }
+
+img.normalSize{
+    width: 75px;
+}
+
+.problemTable tr.selected{
+    background-color: #7C91C7;
+}
+.symptomTable tr.selected{
+    background-color: #FFED94;
+}
+.officeDetail tr{
+    background-color: #ecf0f5;
+}
+.officeDetail tr.selected{
+    background-color: #01ff70
+}
+.officeDetail tr td.selected{
+    background-color: #008d4c
+}
+.officeDetail tr:hover{
+    
+}
+.searchGroup{
+    width: 200px;
+    display: inline-block;
+}
+.textCenter{
+    text-align: center;
+}
+#home .searchGroup select.form-control{
+    background-color: #dedede;
+}
+.modalRow{
+    height: 25px;
+    position: relative;
+}
+.resultModalMap .angular-google-map-container { height: 200px; }
+
+.officeTable tr.selected{
+    background-color: #01ff70
+}
+div .alert.alert-success.orig{
+    color: #3c763d !important;
+    background-color: #dff0d8 !important;
+    border-color: #d6e9c6;
+}
+div .alert.alert-danger.orig{
+   color: #a94442 !important;
+   background-color: #f2dede !important;
+   border-color: #ebccd1;
+}
+div .alert.alert-danger.orig h3{
+   color: #a94442 !important;
+}
+input.modified{
+    border-color: red;
+    background-color: antiquewhite !important;
+}
+textarea.modified{
+    border-color: red;
+    background-color: antiquewhite !important;
+}

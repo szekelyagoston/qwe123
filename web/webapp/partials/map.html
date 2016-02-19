@@ -1,0 +1,49 @@
+<div class="">
+    <div class="overlay">
+        <div class="container">
+            <div class="row ">
+                <div class="col-lg-12 col-md-12 ">
+                    <div id="testimonials" class="carousel slide" data-ride="carousel">
+                        <div id="map" >
+                            <div class="overlay">
+                                <div class="container">
+                                    <div class="row text-center">
+                                        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+                                            <h2 ><strong>Találatok térképen</strong></h2>
+
+                                        </div>
+                                    </div>
+                                    <div class="row ">
+
+                                        <div class="col-sm-12">
+                                            <ui-gmap-google-map center='map.center' zoom='map.zoom' control="mapControl" events="map.events">
+                                                <ui-gmap-marker ng-repeat="marker in map.markers" coords="marker.coords" icon="marker.icon" idKey="marker.id" events="map.markersEvents">
+                                                    
+                                                    <ui-gmap-window options="marker.windowOptions" closeClick="closeClick(marker)">
+                                                        <div>
+                                                            <img ng-src="{{marker.id.specialist.picture}}" class="img-circle normalSize" alt="User Image"><br>
+                                                            {{marker.id.specialist.firstName}} {{marker.id.specialist.lastName}}<br>
+                                                            {{marker.id.office.userGivenAddress}}
+                                                        </div>
+                                                        
+                                                    </ui-gmap-window>
+                                                    
+                                                </ui-gmap-marker>
+
+                                                
+
+                                            </ui-gmap-google-map>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,137 @@
+<admin-directive>
+
+    <div class="row text-center">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <h2><strong>Személyes adatok</strong></h2>
+        </div>
+    </div>
+    
+    <div class="row text-center">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <div class="alert alert-success orig" role="alert" ng-show="!currentUser.denied && !currentUser.verified && currentUser.id !== null && currentUser.firstModificationDone">
+                <h3>Figyelem!</h3> <br><h4>Adminisztrátor jóváhagyására vár, addig nem jelenik meg a találatok között. Módosítás lehetséges</h4>
+            </div>
+        </div>
+        
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <div class="alert alert-danger orig" role="alert" ng-show="currentUser.denied && currentUser.id !== null && currentUser.firstModificationDone && !currentUser.verified">
+                <h3>Elutasítva!</h3> <br><h4>{{currentUser.deniedMessage}}</h4><br><h4>Kérük javítsa ki, majd mentse el megint az adatokat</h4>
+            </div>
+        </div>
+        
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <div class="alert alert-success orig" role="alert" ng-show=" !currentUser.firstModificationDone && !currentUser.verified && !modifiedEntity">
+                <h3>Figyelem!</h3> <br><h4>Kérjük töltse fel alapvető adatait!</h4>
+            </div>
+        </div>
+        
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <div class="alert alert-success orig" role="alert" ng-show=" currentUser.verified">
+                <h3>Figyelem</h3> <br><h4>Módosítás esetén az adminisztrátor jóváhagyásáig a régi adatai jelennek meg!</h4>
+            </div>
+        </div>
+        
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <div class="alert alert-success orig" role="alert" ng-show="origUser.modified && !origUser.denied">
+                <h3>Figyelem!</h3> <br><h4>Módosítás jóváhagyásra vár!</h4>
+            </div>
+        </div>
+        
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <div class="alert alert-danger orig" role="alert" ng-show="origUser.denied && origUser.verified">
+                <h3>Elutasítva!</h3> <br><h4>{{origUser.deniedMessage}}</h4><br><h4>Kérük javítsa ki, majd mentse el megint az adatokat</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="row pad-top-botm">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <form  class="form-horizontal" name="userForm">
+
+                <!--email-->
+                <div class="form-group">
+                    <label for="user" class="col-sm-2 control-label ">Email</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="currentUser.email" ng-if="!showModified('email')"  class="form-control" disabled/>
+                    </div>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="origUser.email" ng-if="showModified('email')" class="form-control" disabled/>
+                    </div>
+                </div>
+                
+                 <!--email-->
+                <div class="form-group">
+                    <label for="user" class="col-sm-2 control-label">Vezetéknév</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="currentUser.lastName" class="form-control " ng-disabled="!inEditMode"/>
+                    </div>
+                    <label for="user" class="col-sm-2 control-label " ng-if="showModified('lastName')">Aktív vezetéknév</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="origUser.lastName" ng-if="showModified('lastName')" class="form-control modified" disabled/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="user" class="col-sm-2 control-label">Keresztnév</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="currentUser.firstName" class="form-control " ng-disabled="!inEditMode"/>
+                    </div>
+                    <label for="user" class="col-sm-2 control-label " ng-if="showModified('firstName')">Aktív keresztnév</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="origUser.firstName" ng-if="showModified('firstName')" class="form-control modified" disabled/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="user" class="col-sm-2 control-label">Telefonszám</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="currentUser.phoneNumber" class="form-control " ng-disabled="!inEditMode"/>
+                    </div>
+                    <label for="user" class="col-sm-2 control-label" ng-if="showModified('phoneNumber')">Aktív telefonszám</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="origUser.phoneNumber" ng-if="showModified('phoneNumber')" class="form-control modified" disabled/>
+                    </div>
+                </div>
+                 
+                 <div class="form-group">
+                    <label for="user" class="col-sm-2 control-label">Magamról</label>
+                    <div class="col-sm-10">
+                        <textarea rows="4" cols="50" type="text" ng-model="currentUser.about" class="form-control " ng-disabled="!inEditMode"></textarea>
+                    </div>
+                    <label for="user" class="col-sm-2 control-label" ng-if="showModified('about')">Aktív magamról</label>
+                    <div class="col-sm-10">
+                        <textarea rows="4" cols="50" type="text" ng-model="origUser.about" ng-if="showModified('about')" class="form-control modified" disabled></textarea>
+                    </div>
+                </div>
+               
+                <expandable-valulist-directive title="Milyen problémák esetén fordulhat hozzám?" allitems="problems" useritems="currentUser.problems" origuseritems="origUser.problems" before-save="setDirectiveFnAddProblems(beforeSave)"></expandable-valulist-directive>
+                
+                <expandable-valulist-directive title="Végzettség(eg)" allitems="qualifications" useritems="currentUser.qualifications" origuseritems="origUser.qualifications" before-save="setDirectiveFnAddQualifications(beforeSave)"></expandable-valulist-directive>
+                
+
+                <div class="form-group">
+                    <label for="user" class="col-sm-2 control-label">Kép feltöltése</label>
+                    <div class="col-sm-10">
+                        <input type="file" nv-file-select uploader="uploader" ng-disabled="!inEditMode"/><br/>
+                    </div>
+                   
+                </div>
+
+
+
+
+                <div class="form-group">
+                    <button class="btn btn-success  btn-lg pull-right " ng-click="commitEdit();">Adatok frissítése</button>
+
+                    <button class="btn btn-primary btn-lg pull-right margin-right-sm" ng-click="startEdit();">Szerkesztés</button>
+                    
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+
+
+</admin-directive>

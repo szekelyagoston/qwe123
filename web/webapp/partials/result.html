@@ -1,0 +1,51 @@
+
+<div id="result" class="pad-top-botm" >
+    <div class="container">
+        <div class="row text-center ">
+            <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+                <h2><strong>Találatok </strong></h2>
+                <p class="sub-head">A keresési feltételeknek leginkább megfelelő szakemberek </p>
+
+            </div>
+        </div>
+        <div class="row ">
+            <div class="container dynamicTile">
+                <div class="row">
+                    <div class="col-sm-4 col-xs-8" ng-repeat="result in results">
+                        <div id="tile10" class="tile">
+
+                            <div class="carousel slide" data-ride="carousel" style="height: 150px">
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner customTile">
+                                    <div class="item active">
+                                        <div style="width: 100px; display: inline-block; position: absolute; top: 25px;">
+                                            <img ng-src="{{result.picture}}" class="img-circle" alt="User Image" style="width: 100px">
+                                        </div>
+                                        <div style="display: inline-block; position: relative; left: 125px;">
+                                            <div style="height: 25px"><label>{{result.lastName}} {{result.firstName}}</label></div>
+                                            
+                                            <div style="height: 25px"><label>{{result.phoneNumber}}</label></div>
+<!--                                            <div ng-repeat="office in result.officeList" style="height: 25px">
+                                                <label>{{office.userGivenAddress}}</label>
+                                            </div>-->
+                                            <div style="height: 25px"><label>{{result.officeList[0].userGivenAddress}}</label></div>
+                                            <div style="height: 25px"><button class="btn btn-sm btn-success" ng-click="openDetail(result)"><i class="fa fa-life-ring">Részletek</i></button></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+</div>

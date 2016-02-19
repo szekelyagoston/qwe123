@@ -1,0 +1,336 @@
+<admin-directive>
+    <div class="row text-center">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <h2><strong>Jóváhagyásra váró rendelési helyek</strong></h2>
+        </div>
+    </div>
+
+    <div class="row pad-top-botm">
+        <div class="col-lg-10 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-md-10 col-sm-10">
+            <form  class="form-horizontal" name="userForm">
+
+                <table class="table table-bordered table-hover documentTable officeTable">
+                    <thead>
+                        <tr>
+                            <th>Cím</th>
+                            <th>Szakember</th>
+                            <th>Email</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="office in offices" ng-class="{selected: office.selected}" ng-click="openOffice(office)">
+                            <td>{{office.address}}</td>
+                            <td>{{office.specialist.lastName}} {{office.specialist.firstName}}</td>
+                            <td>{{office.specialist.email}}</td>
+                            <td>{{office.modified ? "Módosított" : "Létrehozott"}}</td>
+                        </tr>
+
+                        <tr ng-show="offices.length < 1">
+                            <td colspan="3">Nincsenen jóváhagyásra váró rendelés!</td>
+                        </tr>
+
+
+                    </tbody>
+
+                </table>
+
+            </form>
+        </div>
+    </div>
+
+
+
+    <div class="row text-center">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <h2><strong>Szakember adatai</strong></h2>
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <div class="alert alert-success orig" role="alert" ng-show="!selectedOffice.specialist.denied && !selectedOffice.specialist.verified && selectedOffice.specialist.id !== null && selectedOffice.specialist.firstModificationDone">
+                <h3>Figyelem!</h3> <br><h4>A szakember is jóváhagyásra vár</h4>
+            </div>
+        </div>
+
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <div class="alert alert-danger orig" role="alert" ng-show="!selectedOffice.specialist.modified && selectedOffice.specialist.denied && selectedOffice.specialist.id !== null && selectedOffice.specialist.firstModificationDone">
+                <h3>Elutasítva!</h3> <br><br><h4>Ez a szakember vissza lett küldve korrekcióra!</h4>
+            </div>
+        </div>
+
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <div class="alert alert-success orig" role="alert" ng-show="selectedOffice.specialist.modified && !selectedOffice.specialist.denied">
+                <h3>Figyelem!</h3> <br><h4>A szakembert módosították, itt még a régi adatok szerepelnek!</h4>
+            </div>
+        </div>
+
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <div class="alert alert-danger orig" role="alert" ng-show="selectedOffice.specialist.modified && selectedOffice.specialist.denied">
+                <h3>Figyelem!</h3> <br><h4>A szakember módosítása vissza lett küldve korrekcióra, elfogadás esetén az itt látható régi adatokkal fog megjelenni!</h4>
+            </div>
+        </div>   
+
+
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <div class="alert alert-success orig" role="alert" ng-show=" !selectedOffice.specialist.firstModificationDone">
+                <h3>Figyelem!</h3> <br><h4>Még nem történt adatfelvitel ehhez a szakemberhez!</h4>
+            </div>
+        </div>
+    </div>
+    <div class="row pad-top-botm">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <form  class="form-horizontal" name="userForm">
+
+                <div class="form-group">
+                    <label for="user" class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="selectedOffice.specialist.email" class="form-control" disabled/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="user" class="col-sm-2 control-label">Vezetéknév</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="selectedOffice.specialist.lastName" class="form-control" disabled/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="user" class="col-sm-2 control-label">Keresztnév</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="selectedOffice.specialist.firstName" class="form-control" disabled/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="user" class="col-sm-2 control-label">Telefonszám</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="selectedOffice.specialist.phoneNumber" class="form-control" disabled/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="user" class="col-sm-2 control-label">Kép</label>
+                    <div class="col-sm-10">
+                        <img ng-src="{{selectedOffice.specialist.picture}}" class="img-circle" alt="User Image" style="width: 150px">
+                    </div>
+                </div>
+                <!--PROBLEMS-->
+                <div class="form-group">
+                    <label for="user" class="col-sm-2 control-label">Milyen problémák esetén fordulhatnak hozzám?</label>
+                    <div class="col-sm-10">
+                        <div class="form-group">
+                            <div class="col-sm-10">
+                                <table class="table table-bordered documentTable officeDetail">
+                                    <tbody>
+                                        <tr ng-show="selectedOffice.specialist.problems.length < 1">
+                                            <td>Nincsen kiválasztott probléma!</td>
+                                        </tr>
+                                        <tr ng-repeat="problem in selectedOffice.specialist.problems">
+                                            <td>{{problem.stringValue}}</td>
+                                            <td style="width: 20px; background-color: red;" ng-show="!problem.verified">
+                                                <i class="fa fa-exclamation-circle" ></i>
+                                            </td>
+                                            <td style="width: 20px; background-color: green;" ng-show="problem.verified">
+                                                <i class="fa fa-check-circle"></i>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                
+                <!--QUALIFICATIONS-->
+                <div class="form-group">
+                    <label for="user" class="col-sm-2 control-label">Végzettség(ek)</label>
+                    <div class="col-sm-10">
+                        <div class="form-group">
+                            <div class="col-sm-10">
+                                <table class="table table-bordered documentTable officeDetail">
+                                    <tbody>
+                                        <tr ng-show="selectedOffice.specialist.qualifications.length < 1">
+                                            <td>Nincsen kiválasztott végzettség!</td>
+                                        </tr>
+                                        <tr ng-repeat="qualification in selectedOffice.specialist.qualifications">
+                                            <td>{{qualification.stringValue}}</td>
+                                            <td style="width: 20px; background-color: red;" ng-show="!qualification.verified">
+                                                <i class="fa fa-exclamation-circle" ></i>
+                                            </td>
+                                            <td style="width: 20px; background-color: green;" ng-show="qualification.verified">
+                                                <i class="fa fa-check-circle"></i>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+
+    <div class="row text-center">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <h2><strong>Dokumentumok</strong></h2>
+        </div>
+    </div>
+
+    <div class="row pad-top-botm">
+        <div class="col-lg-10 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-md-10 col-sm-10">
+            <form  class="form-horizontal" name="userForm">
+
+                <table class="table table-bordered table-hover documentTable">
+                    <thead>
+                        <tr>
+                            <th>Név</th>
+                            <th>Leírás</th>
+                            <th>Letöltés</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="document in selectedOffice.specialist.documentList">
+                            <td>{{document.title}}</td>
+                            <td>{{document.comment}}</td>
+                            <td><a class="btn btn-warning" ng-href="szakemberkereso/admin/getDocumentById/{{document.id}}" target="_blank">Letöltés</a></td>
+                        </tr>
+
+                        <tr ng-show="selectedOffice.specialist.documentList.length < 1">
+                            <td colspan="3">Nincsen feltöltött dokumentum!</td>
+                        </tr>
+
+
+                    </tbody>
+
+                </table>
+
+
+
+            </form>
+        </div>
+    </div>
+
+    <div class="row text-center">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <h2><strong>Kiválasztott Rendelés</strong></h2>
+        </div>
+    </div>
+
+    <div class="row text-center">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <div class="alert alert-success orig" role="alert" ng-show="selectedOffice.denied">
+                <h3>Figyelem!</h3> <br><h4>Már vissza lett küldve módosításra!</h4>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row pad-top-botm">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <form  class="form-horizontal" name="userForm">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <h2 class="box-title">Rendelés helye</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="user" class="col-sm-2 control-label">Cím</label>
+                                <div class="col-sm-10">
+                                    <input type="text" ng-model="selectedOffice.address" class="form-control" disabled/>
+                                </div>
+                                <label for="user" class="col-sm-2 control-label" ng-if="showModified('address')">Új cím</label>
+                                <div class="col-sm-10">
+                                    <input type="text" ng-model="selectedOffice.modifiedOffice.address" ng-if="showModified('address')" class="form-control modified" disabled/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="user" class="col-sm-2 control-label">Opcionális cím</label>
+                                <div class="col-sm-10">
+                                    <input type="text" ng-model="selectedOffice.userGivenAddress" class="form-control" disabled/>
+                                </div>
+                                <label for="user" class="col-sm-2 control-label" ng-if="showModified('userGivenAddress')">Új felhasználói cím</label>
+                                <div class="col-sm-10">
+                                    <input type="text" ng-model="selectedOffice.modifiedOffice.userGivenAddress" ng-if="showModified('userGivenAddress')" class="form-control modified" disabled/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <div class="col-sm-12">
+                                    <ui-gmap-google-map center='map.center' zoom='map.zoom' control="mapControl" events="map.events">
+                                        <ui-gmap-marker ng-repeat="marker in map.markers" options="marker.options" coords="marker.coords" icon="marker.icon" idkey="marker.id"></ui-gmap-marker>
+                                    </ui-gmap-google-map>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <h2 class="box-title">Rendelés adatai</h3>
+                        </div>
+                        <div class="box-body">
+
+                            <div class="form-group">
+                                <label for="user" class="col-sm-2 control-label">Nyitvatartás</label>
+                                <div class="col-sm-10">
+                                    <div class="form-group">
+                                        <div class="col-sm-10">
+                                            <openingdays-directive ng-disabled="true" openingdays="selectedOffice.openingHours"></openingdays-directive>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box box-warning" ng-show="selectedOffice.modified">
+                        <div class="box-header">
+                            <h2 class="box-title">Új rendelés adatai</h3>
+                        </div>
+                        <div class="box-body">
+                            
+                            <div class="form-group">
+                                <label for="user" class="col-sm-2 control-label">Nyitvatartás</label>
+                                <div class="col-sm-10">
+                                    <div class="form-group">
+                                        <div class="col-sm-10">
+
+                                            <openingdays-directive openingdays="selectedOffice.modifiedOffice.openingHours" ng-disabled="true"></openingdays-directive>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <button class="btn btn-success  btn-lg pull-right " ng-click="activate(selectedOffice);">Aktiválás</button>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <textarea cols="5" ng-model="deniedMessage" style="width: 100%" placeholder="Az elutasítás oka"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-warning  btn-lg pull-right " ng-click="deny(selectedOffice, deniedMessage);">Elutasítás</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</admin-directive>

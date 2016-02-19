@@ -1,0 +1,238 @@
+<admin-directive>
+    <div class="row text-center">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <h2><strong>Jóváhagyásra váró szakemberekk</strong></h2>
+        </div>
+    </div>
+
+    <div class="row pad-top-botm">
+        <div class="col-lg-10 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-md-10 col-sm-10">
+            <form  class="form-horizontal" name="userForm">
+
+                <table class="table table-bordered table-hover documentTable officeTable">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Név</th>
+                            <th>Telefonszám</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="specialist in specialists" ng-class="{selected: specialist.selected}" ng-click="openSpecialist(specialist)">
+                            <td>{{specialist.email}}</td>
+                            <td>{{specialist.lastName}} {{specialist.firstName}}</td>
+                            <td>{{specialist.phoneNumber}}</td>
+                            <td>{{specialist.modified ? "Módosított" : "Létrehozott"}}</td>
+                        </tr>
+
+                        <tr ng-show="offices.length < 1">
+                            <td colspan="3">Nincsenen jóváhagyásra váró rendelés!</td>
+                        </tr>
+
+
+                    </tbody>
+
+                </table>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="row text-center">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <h2><strong>Szakember adatai</strong></h2>
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <div class="alert alert-success orig" role="alert" ng-show="selectedSpecialist.denied">
+                <h3>Figyelem!</h3> <br><h4>Már vissza lett küldve módosításra!</h4>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row pad-top-botm">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <form  class="form-horizontal" name="userForm">
+
+                <div class="form-group">
+                    <label for="user" class="col-sm-2 control-label">Jelenlegi email</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="selectedSpecialist.email" class="form-control" disabled/>
+                    </div>
+                   
+                </div>
+
+                <div class="form-group">
+                    <label for="user" class="col-sm-2 control-label">Jelenlegi vezetéknév</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="selectedSpecialist.lastName" class="form-control" disabled/>
+                    </div>
+                    <label for="user" class="col-sm-2 control-label" ng-if="showModified('lastName')">Új vezetéknév</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="selectedSpecialist.modifiedSpecialist.lastName" ng-if="showModified('lastName')" class="form-control modified" disabled/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="user" class="col-sm-2 control-label">Jelenlegi keresztnév</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="selectedSpecialist.firstName" class="form-control" disabled/>
+                    </div>
+                    <label for="user" class="col-sm-2 control-label" ng-if="showModified('firstName')">Új keresztnév</label>
+                    <div class="col-sm-10">
+                        <input type="text"  ng-model="selectedSpecialist.modifiedSpecialist.firstName" feltöltött dokumentum="selectedSpecialist.modifiedSpecialist.firstName" ng-if="showModified('firstName')" class="form-control modified" disabled/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="user" class="col-sm-2 control-label">Jelenlegi telefonszám</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="selectedSpecialist.phoneNumber" class="form-control" disabled/>
+                    </div>
+                    <label for="user" class="col-sm-2 control-label" ng-if="showModified('phoneNumber')">Új telefonszám</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="selectedSpecialist.modifiedSpecialist.phoneNumber" ng-if="showModified('phoneNumber')" class="form-control modified" disabled/>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="user" class="col-sm-2 control-label">Jelenlegi "Magamról"</label>
+                    <div class="col-sm-10">
+                        <textarea cols="50" rows="4" type="text" ng-model="selectedSpecialist.about" class="form-control" disabled></textarea>
+                    </div>
+                    <label for="user" class="col-sm-2 control-label" ng-if="showModified('about')">Új "Magamról"</label>
+                    <div class="col-sm-10">
+                        <textarea cols="50" rows="4" type="text" ng-model="selectedSpecialist.modifiedSpecialist.about" ng-if="showModified('about')" class="form-control modified" disabled></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="user" class="col-sm-2 control-label">Jelenlegi kép</label>
+                    <div class="col-sm-10">
+                        <img ng-src="{{selectedSpecialist.picture}}" class="img-circle" alt="User Image" style="width: 150px">
+                    </div>
+                    <label for="user" class="col-sm-2 control-label" ng-if="showModified('picture')">Új kép</label>
+                    <div class="col-sm-10" ng-if="showModified('picture')">
+                        <img ng-src="{{selectedSpecialist.modifiedSpecialist.picture}}" class="img-circle" alt="User Image" style="width: 150px">
+                    </div>
+                </div>
+
+                <!--PROBLEMS-->
+                <div class="form-group">
+                    <label for="user" class="col-sm-2 control-label">Milyen problémák esetén fordulhatnak hozzám?</label>
+                    <div class="col-sm-10">
+                        <div class="form-group">
+                            <div class="col-sm-10">
+                                <table class="table table-bordered documentTable officeDetail">
+                                    <tbody>
+
+                                        <tr ng-repeat="problem in problems">
+                                            <td>{{problem.stringValue}} <p style="color: red">{{problem.message}}</p></td>
+                                            <td style="width: 20px; background-color: red;" ng-show="!problem.verified">
+                                                <i class="fa fa-exclamation-circle" ></i>
+                                            </td>
+                                            <td style="width: 20px; background-color: green;" ng-show="problem.verified">
+                                                <i class="fa fa-check-circle"></i>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                
+                <!--PROBLEMS-->
+                <div class="form-group">
+                    <label for="user" class="col-sm-2 control-label">Végzettség(ek)</label>
+                    <div class="col-sm-10">
+                        <div class="form-group">
+                            <div class="col-sm-10">
+                                <table class="table table-bordered documentTable officeDetail">
+                                    <tbody>
+
+                                        <tr ng-repeat="qualification in qualifications">
+                                            <td>{{qualification.stringValue}} <p style="color: red">{{qualification.message}}</p></td>
+                                            <td style="width: 20px; background-color: red;" ng-show="!qualification.verified">
+                                                <i class="fa fa-exclamation-circle" ></i>
+                                            </td>
+                                            <td style="width: 20px; background-color: green;" ng-show="qualification.verified">
+                                                <i class="fa fa-check-circle"></i>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+
+    <div class="row text-center">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <h2><strong>Dokumentumok</strong></h2>
+        </div>
+    </div>
+
+    <div class="row pad-top-botm">
+        <div class="col-lg-10 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-md-10 col-sm-10">
+            <form  class="form-horizontal" name="userForm">
+
+                <table class="table table-bordered table-hover documentTable">
+                    <thead>
+                        <tr>
+                            <th>Név</th>
+                            <th>Leírás</th>
+                            <th>Letöltés</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="document in selectedSpecialist.documentList">
+                            <td>{{document.title}}</td>
+                            <td>{{document.comment}}</td>
+                            <td><a class="btn btn-warning" ng-href="szakemberkereso/admin/getDocumentById/{{document.id}}" target="_blank">Letöltés</a></td>
+                        </tr>
+
+                        <tr ng-show="selectedSpecialist.documentList.length < 1">
+                            <td colspan="3">Nincsen feltöltött dokumentum!</td>
+                        </tr>
+
+
+                    </tbody>
+
+                </table>
+
+
+
+            </form>
+        </div>
+    </div>
+
+    <div class="row pad-top-botm">
+        <div class="col-lg-10 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-md-10 col-sm-10">
+            <div class="form-group">
+                <button class="btn btn-success  btn-lg pull-right " ng-click="activate(selectedSpecialist);">Aktiválás</button>
+            </div>
+            <br>
+            <div class="form-group">
+                <textarea cols="5" ng-model="deniedMessage" style="width: 100%" placeholder="Az elutasítás oka"></textarea>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-warning  btn-lg pull-right " ng-click="deny(selectedSpecialist, deniedMessage);">Elutasítás</button>
+            </div>
+        </div>
+    </div>
+</admin-directive>

@@ -1,0 +1,134 @@
+<admin-directive>
+
+    <div class="row text-center">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <h2><strong>{{title}}</strong></h2>
+        </div>
+
+    </div>
+    <div class="row text-center">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <div class="alert alert-success orig" role="alert" ng-show="!office.denied && !office.verified && !newEntity && !modifiedEntity">
+                <h3>Figyelem!</h3> <br><h4>Ez a rendelési hely az adminisztrátor jóváhagyására vár, addig nem jelenik meg a találatok között. Módosítás lehetséges</h4>
+            </div>
+        </div>
+        
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <div class="alert alert-danger orig" role="alert" ng-show="office.denied && office.id !== null && !newEntity && !modifiedEntity">
+                <h3>Elutasítva!</h3> <br><h4>{{office.deniedMessage}}</h4><br><h4>Kérük javítsa ki, majd mentse el megint az adatokat</h4>
+            </div>
+        </div>
+        
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <div class="alert alert-success orig" role="alert" ng-show="office.verified && office.id !== null && !newEntity && !modifiedEntity">
+                <h3>Figyelem</h3> <br><h4>Módosítás esetén a találatok között a módosítások jóváhagyásáig változatlan adatokkal jelenik meg!</h4>
+            </div>
+        </div>
+        
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <div class="alert alert-success orig" role="alert" ng-show="origOffice.modified && !origOffice.denied">
+                <h3>Figyelem!</h3> <br><h4>Módosítás jóváhagyásra vár!</h4>
+            </div>
+        </div>
+        
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <div class="alert alert-danger orig" role="alert" ng-show="origOffice.denied && origOffice.verified && modifiedEntity">
+                <h3>Elutasítva!</h3> <br><h4>{{origOffice.deniedMessage}}</h4><br><h4>Kérük javítsa ki, majd mentse el megint az adatokat</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="row pad-top-botm">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <form  class="form-horizontal" name="userForm">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <h2 class="box-title">Rendelés helye</h2>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="user" class="col-sm-2 control-label">Cím</label>
+                                <div class="col-sm-10">
+                                    <input type="text" ng-model="office.address" class="form-control" disabled/>
+                                </div>
+                                <label for="user" class="col-sm-2 control-label" ng-if="showModified('address')">Eredeti cím</label>
+                                <div class="col-sm-10">
+                                    <input type="text" ng-model="origOffice.address" ng-if="showModified('address')" class="form-control" disabled/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="user" class="col-sm-2 control-label">Opcionális cím</label>
+                                <div class="col-sm-10">
+                                    <input type="text" ng-model="office.userGivenAddress" class="form-control"/>
+                                </div>
+                                <label for="user" class="col-sm-2 control-label" ng-if="showModified('userGivenAddress')">Eredeti opcionális cím</label>
+                                <div class="col-sm-10">
+                                    <input type="text" ng-model="origOffice.userGivenAddress" ng-if="showModified('userGivenAddress')" class="form-control" disabled/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <div class="col-sm-12">
+                                    <ui-gmap-google-map center='map.center' zoom='map.zoom' control="mapControl" events="map.events">
+                                        <ui-gmap-marker ng-repeat="marker in map.markers" options="marker.options" coords="marker.coords" icon="marker.icon" idkey="marker.id"></ui-gmap-marker>
+                                    </ui-gmap-google-map>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <h2 class="box-title">Rendelés adatai</h3>
+                        </div>
+                        <div class="box-body">
+                            
+                            <div class="form-group">
+                                <label for="user" class="col-sm-2 control-label">Nyitvatartás</label>
+                                <div class="col-sm-10">
+                                    <div class="form-group">
+                                        <div class="col-sm-10">
+
+                                            <openingdays-directive openingdays="office.openingHours"></openingdays-directive>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="box box-warning" ng-show="origOffice.modified">
+                        <div class="box-header">
+                            <h2 class="box-title">Eredeti rendelés adatai</h3>
+                        </div>
+                        <div class="box-body">
+                            
+                            <div class="form-group">
+                                <label for="user" class="col-sm-2 control-label">Nyitvatartás</label>
+                                <div class="col-sm-10">
+                                    <div class="form-group">
+                                        <div class="col-sm-10">
+
+                                            <openingdays-directive openingdays="origOffice.openingHours" ng-disabled="true"></openingdays-directive>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <button ng-show="!office.verified && !origOffice.modified" class="btn btn-success  btn-lg pull-right " ng-click="save();">Mentés</button>
+                        <button ng-show="origOffice.modified || office.verified" class="btn btn-success  btn-lg pull-right " ng-click="save();">Módosítások mentése</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+</admin-directive>
